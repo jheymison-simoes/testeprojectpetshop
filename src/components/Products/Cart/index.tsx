@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import ListProducts from "../../../pages/ListProducts";
-import Itens from "../Item";
+
 
 // CSS
 import "./style.css";

@@ -1,5 +1,4 @@
 import React, { useState, FormEvent } from "react";
-import { Link, useHistory } from "react-router-dom";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import MaskedInput from 'react-text-mask';
@@ -22,7 +21,7 @@ interface TextMaskCustomProps {
 console.log(window.location.pathname);
 
 function noCheckout(){
-    if(sessionStorage.length == 0 && window.location.pathname == "/checkout"){
+    if(sessionStorage.length === 0 && window.location.pathname === "/checkout"){
         window.location.replace("/");
     }
 }
@@ -171,16 +170,16 @@ function Checkout() {
             var header = "";
             var dadosCliente = "";
 
-            if(i == 0){
+            if(i === 0){
                 header = "Meu(s) Pedido(s):\n--------------------\n\n";
             }
 
             var pedidos =   "*Produto*: "+ produto + "\n" + 
                             "*Quantidade*: " + qtd + "\n" + 
                             "*Subtotal*: " + formatSubtotal + "\n" +
-                            "--------------------"+"\n";
+                            "--------------------\n";
             
-            if(sizeSession == i + 1){
+            if(sizeSession === i + 1){
                 dadosCliente = "\n--------------------\n" +
                                "\n*_Valor Total_*: " + formatValueTotal + "\n" +
                                "\n--------------------\n" +
@@ -205,7 +204,7 @@ function Checkout() {
         await window.open(linkWhatsApp + destinyPhone + "&text=" + encoderPedido, "_blank");
 
         sessionStorage.clear();
-        window.location.replace("/");
+        return window.location.replace("/");
     }
 
     return (

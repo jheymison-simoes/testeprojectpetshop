@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Alerts from "../../../alerts";
 
-// Pages
-import Cart from "../Cart";
-
 // Icons
 import { FaCartPlus, FaWindowClose } from "react-icons/fa";
 import { MdShoppingCart, MdDeleteForever, MdStore } from "react-icons/md";

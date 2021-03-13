@@ -15,8 +15,9 @@
 .slider-slick-image {
     display: flex;
     justify-content: center;
-    transform: scale(0.9);
-    transition: all ease 0.2s;
+    /* transform: scale(0.9);
+    transition: all ease 0.2s; */
+    /* border: 1px solid #ccc; */
 }
 
 .slider-slick-image:hover {
@@ -25,6 +26,12 @@
 
 .slider-slick-legend {
     text-align: center;
+    border: 1px solid #ccc;
+    height: 40px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slick-next:before,

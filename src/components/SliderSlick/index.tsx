@@ -157,7 +157,7 @@ export default class SwipeToSlide extends Component {
                         return (
                             <Link to={x.link} key={i} type="button" className="slider-slick-items" >
                                 <div className="slider-slick-image">
-                                    <img src={x.img} alt={x.alt}/>
+                                    {/* <img src={x.img} alt={x.alt}/> */}
                                 </div>
                                 <p className="slider-slick-legend">
                                     {x.legend}
