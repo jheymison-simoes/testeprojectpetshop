@@ -8,16 +8,16 @@ import Product from '../../components/Products';
 import '../../styles/global.css';
 import './style.css';
 
-interface Products {
-    id: number;
-    description: string;
-    value: number;
-    image: string;
-};
+// interface Products {
+//     id: number;
+//     description: string;
+//     value: number;
+//     image: string;
+// };
 
-interface IProducts {
-    products: Products[];
-}
+// interface IProducts {
+//     products: Products[];
+// }
 
 function ListProducts() {
 
