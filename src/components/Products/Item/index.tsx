@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Alerts from "../../../alerts";
 
 // Icons
@@ -147,7 +147,7 @@ function Itens(props: Products) {
 
             <div className="btn-float">
                 <button className="btn-cart-float" type="button" onClick={ cartOpen }>
-                    <h1><MdShoppingCart/>Meus Itens</h1>
+                    <h1><MdShoppingCart/>  Meus Itens</h1>
                     
                 </button>
                 <div className="qtd-itens-cart">
@@ -433,23 +433,18 @@ function Itens(props: Products) {
                     
                 </div>
                 <div className="cart-footer-products">
-                    <button className="btn-cart-checkout">
-                        {/* <p> </p> */}
-                        
+                    <Link to="/checkout" className="btn-cart-checkout">
                         <div className="cart-payment">
                             Checkout <span> R$ </span>{ valueTotal.toFixed(2).toString().replace(".", ",") }
                         </div>
 
-                    </button>
-
-                    <button className="btn-cart-checkout btn-cart-pet">
+                    </Link>
+                    
+                    <Link to="/" className="btn-cart-checkout btn-cart-pet">
                         <p>Escolher Outro Pet </p>
-                    </button>
-
+                    </Link>
                 </div>
-            </div>
-
-                        
+            </div>      
         </div>
 
         </>

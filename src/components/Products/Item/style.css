@@ -71,6 +71,11 @@
     cursor: pointer;
 }
 
+.btn-cart-float h1 {
+    display: flex;
+    align-items: center;
+}
+
 .qtd-itens-cart {
     width: 20%;
     border-left: 1px solid #fff;
