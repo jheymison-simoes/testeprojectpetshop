@@ -62,9 +62,8 @@ function Itens(props: Products) {
                 itens++;
             }   
         }
-        setTotalItensCart(itens);
+        // setTotalItensCart(itens);
         return itens;
-        
     }
 
     // Muda o titulo de cada Categorias
@@ -117,8 +116,8 @@ function Itens(props: Products) {
         if(totalItensStorage() > 0){
             setOpenCart(true);
             getItensSession();
-            // const total = totalValue();
             setValueTotal(totalValue());
+            setTotalItensCart(totalItensStorage());
             sessionStorage.setItem("ValorTotal", totalValue().toString());
         } else {
             Alerts.emptyCart();
@@ -129,6 +128,7 @@ function Itens(props: Products) {
     function cartClose() {
         setOpenCart(false);
         setListProducts([]);
+        setTotalItensCart(totalItensStorage());
     }
 
     return (
@@ -142,17 +142,16 @@ function Itens(props: Products) {
                 <button className="list-products-top-btn" type="button" onClick={ cartOpen }>
                     <MdShoppingCart />
                 </button>
-                <div className="list-products-top-total-itens">{ totalItensCart }</div>
+                <div className="list-products-top-total-itens">{ totalItensStorage() }</div>
             </div>
 
-            <div className="btn-float">
-                <button className="btn-cart-float" type="button" onClick={ cartOpen }>
+            <div className="btn-float" onClick={ cartOpen }>
+                <button className="btn-cart-float" type="button" >
                     <h1><MdShoppingCart/>  Meus Itens</h1>
-                    
                 </button>
                 <div className="qtd-itens-cart">
-                        <h1>{ totalItensCart }</h1>
-                    </div>
+                    <h1>{ totalItensStorage() }</h1>
+                </div>
             </div>
             
         </div>
