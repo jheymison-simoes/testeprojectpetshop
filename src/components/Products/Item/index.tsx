@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Alerts from "../../../alerts";
+import Loader from 'react-loader-spinner';
 
 // Icons
 import { FaCartPlus, FaWindowClose } from "react-icons/fa";
@@ -53,6 +54,7 @@ function Itens(props: Products) {
     const [totalItensCart, setTotalItensCart] = useState(0); // Quaantidade de Itens no carrinho
     const [listProducts, setListProducts] = useState<IListProducts[]>([]);
     const [valueTotal, setValueTotal] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     // Conta a quantiade de itens no carrinho
     function totalItensStorage() {
@@ -155,9 +157,148 @@ function Itens(props: Products) {
             </div>
             
         </div>
-
+        {/* Inicio */}
         <div className="center-products">
-            {props.arrayProducts.map( (products: IListProducts) => {
+
+        {loading === true ?
+            <Loader className="loadingProducts" type="Puff" color="#4abdac" height={50} width={50} timeout={5000} />
+        :
+            <>
+            {props.arrayProducts.length == 0 ?   
+                    <div className="center-products-clear">Desculpe-me, no momento estamos sem este produto!</div>
+                :
+
+                props.arrayProducts.map( (products: IListProducts) => {
+                
+                    products.count = products.count == null ? 1 : products.count;
+                    let value = Number(products.value);
+                    products.subtotal = value * products.count;
+                    const subTotalFormat = products.subtotal.toFixed(2).toString().replace(".", ",");
+
+                    // Verifica se há Repetidos
+                    function repeat(item: string){
+                        if(sessionStorage.getItem(item)){
+                            Alerts.alertRepeat();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    // Aumenta a Quantidade de cada item
+                    function increment() {
+
+                        if( repeat( products.id.toString() ) ){
+                            Alerts.alertRepeatQty();
+                        } else {
+                            if(products.count >= products.amount){
+                                products.count = products.amount;
+                                Alerts.alertIncrement(products.count);
+                            } else {
+                                products.count = products.count + 1;
+                                products.subtotal = value * products.count;
+                                
+                            }
+                            setCountItens(products.count);
+                        }
+                        setListProducts(listProducts);
+                    }
+
+                    // Diminui a Quantidade de cada Item
+                    function decrement() {
+                        if( repeat( products.id.toString() ) ){
+                            Alerts.alertRepeatQty();
+                        } else {
+                            if(products.count <= 1){
+                                Alerts.alertDecrement();
+                                products.count = 1;
+                            } else {   
+                                products.count = products.count - 1;
+                                products.subtotal = value * products.count;
+                            }
+                            setCountItens(products.count);
+                        }                    
+                    }
+
+                    // Altera o Estado da Quantidade de Cada Item
+                    const handleChange = (event: any) => {
+                        setCountItens(products.count);
+                    }
+
+
+                    // Adiciona o Item na Session storage
+                    function addItemSession(){
+                        // Guarda os Produtos em um Objeto
+                        const data = {
+                            id: products.id,
+                            image: products.image,
+                            description: products.description,
+                            amount: products.amount,
+                            value: products.value,
+                            subtotal: Number(products.subtotal),
+                            count: products.count
+                        };
+
+                        if( !repeat( data.id.toString() ) ){
+                            sessionStorage.setItem(
+                                products.id.toString(),
+                                JSON.stringify(data)
+                            );
+                            cartOpen();
+                            
+                        } else {
+                            setListProducts([]);
+                        }
+                    }
+
+                    return (
+
+                        <>
+                        <div className="local-products" key={products.id}>
+                            <div className="details-products">
+                                <div className="header-products">
+                                    <img
+                                        src={products.image}
+                                        alt="Comedouro para Cachorro"
+                                        className="header-img-products"
+                                    />
+                                </div>
+                                <div className="body-products">
+                                    <div className="body-description-products">
+                                        {products.description}
+                                    </div>
+                                    <div className="body-options">
+                                        <div className="body-options-products">
+                                            Disponível: {products.amount}
+                                            <br></br>
+                                            Categoria: {categoryTitles}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="footer-products">
+                                <div className="footer-input-products">
+                                    <button className="btn-decrement" onClick={decrement}>-</button>
+                                    <input type="number" className="qtd-input-products" value={products.count} onChange={handleChange} />
+                                    <button className="btn-increment" onClick={increment}>+</button>
+                                </div>
+                                <button className="btn-submit" onClick={addItemSession}>
+                                    <FaCartPlus/>
+                                    <div className="body-value-products">
+                                        R$ <span>{ subTotalFormat }</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        </>
+                    );
+                })}
+            </>
+        }
+        
+
+            {/* {props.arrayProducts.map( (products: IListProducts) => {
                 
                 products.count = products.count == null ? 1 : products.count;
                 let value = Number(products.value);
@@ -214,7 +355,6 @@ function Itens(props: Products) {
                     setCountItens(products.count);
                 }
 
-                // const subTotalFormat = products.subtotal;
 
                 // Adiciona o Item na Session storage
                 function addItemSession(){
@@ -234,15 +374,11 @@ function Itens(props: Products) {
                             products.id.toString(),
                             JSON.stringify(data)
                         );
-
-                        // getItensSession();
                         cartOpen();
                         
                     } else {
                         setListProducts([]);
                     }
-
-                    // cartOpenClose(); // Abre ou fecha o carrinho
                 }
 
                 return (
@@ -287,13 +423,11 @@ function Itens(props: Products) {
                     
                     </>
                 );
-
-            })}
+            })} */}
 
         </div>
-        
-        {/* <Cart openCart={openCart} cartOpenClose={cartOpenClose} /> */}
 
+        {/* FIM */}
         <div>
             <div className={openCart !== false ? "overlay-cart" : ""} onClick={cartClose} ></div>
             
@@ -304,23 +438,14 @@ function Itens(props: Products) {
                         <FaWindowClose className="icon-close-cart" onClick={ cartClose }/>
                         <h1>Meus Itens</h1>
                         <h4>Itens: {totalItensCart}</h4>
-                        {/* <div className="title-header-cart">
-                            <h1>Meus Itens</h1>
-                            <h4>Itens: {totalItensCart}</h4>
-                        </div> */}
                     </div>
                     <div className="layout-cart-products">
                         {listProducts.map( (products, i) => {
 
-                    
                             const valueOfNumber = Number(products.value);
-                            // const subtotalOfNumber = Number(products.subtotal);
-
 
                             function valueSubTotal() {
                                 const valueItem = valueOfNumber * products.count;
-                                // const valueItemFormat = valueItem.toFixed(2).toString().replace(".", ","); //Formatando Valor
-
                                 return valueItem;
                             }
 
@@ -333,7 +458,6 @@ function Itens(props: Products) {
 
                                 sessionStorage.setItem(products.id.toString(), JSON.stringify(itemSession));
                             }
-
 
                             function deleteItem() {
                                 const item = products.id;
@@ -386,7 +510,6 @@ function Itens(props: Products) {
                             const subTotalFormat = valueSubTotal().toFixed(2).toString().replace(".",",");
 
                             return (
-                                
                                 <div className="cart-products" key={products.id}>
                                     <div className="local-products cart-local-products">
                                         <div className="details-products">
@@ -427,7 +550,6 @@ function Itens(props: Products) {
                                         </div>
                                     </div>
                                 </div>
-                                
                             );
                         })}
                     </div>

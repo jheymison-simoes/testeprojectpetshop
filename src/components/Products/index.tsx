@@ -22,21 +22,6 @@ interface listProducts {
     subtotal: number;
 };
 
-const titles = [
-    {title: "Alimentadores e Bebedores", link: "AlimentadoresBebedores"},
-    {title: "Anti Pulgas e Carrapatos", link: "AntiPulgasCarrapatos"},
-    {title: "Banho", link: "Banho"},
-    {title: "Banho e Tosa", link: "BanhoTosa"},
-    {title: "Brinquedos", link: "Brinquedos"},
-    {title: "Casas e Camas", link: "CasasCamas"},
-    {title: "Consulta Veterinária", link: "ConsultaVeterinaria"},
-    {title: "Produtos para Banho", link: "ProdutosBanho"},
-    {title: "Petiscos", link: "Petiscos"},
-    {title: "Rações", link: "Racoes"},
-    {title: "Medicamentos", link: "Medicamentos"},
-    {title: "Roupas e Acessórios", link: "RoupasAcessorios"},
-];
-
 function Products() {
     const groupLocation = useLocation();
     const stringPath = groupLocation.pathname.split('/');
@@ -70,15 +55,6 @@ function Products() {
         setTotalItensCart(totalItens);
         console.log(totalItens);
     }
-
-    // // Muda o titulo de cada Categorias
-    // var categoryTitles = "";
-    // titles.map(value => { 
-    //     if(stringPath[2] == value.link){
-    //         categoryTitles = value.title;
-    //         return categoryTitles;
-    //     }
-    // });
 
     return (
         <div className="list-products-products">         
