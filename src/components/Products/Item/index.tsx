@@ -302,10 +302,12 @@ function Itens(props: Products) {
                     <img src={LogoCart} className="cart-logo"/>
                     <div className="header-cart">
                         <FaWindowClose className="icon-close-cart" onClick={ cartClose }/>
-                        <div className="title-header-cart">
-                            <h1><MdStore/>Meus Itens</h1>
+                        <h1>Meus Itens</h1>
+                        <h4>Itens: {totalItensCart}</h4>
+                        {/* <div className="title-header-cart">
+                            <h1>Meus Itens</h1>
                             <h4>Itens: {totalItensCart}</h4>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="layout-cart-products">
                         {listProducts.map( (products, i) => {
