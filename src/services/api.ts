@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://backedprojectpet.herokuapp.com',
+    baseURL: 'http://projectpeshop-com-br.umbler.net/',
 });
 
 export default api;
